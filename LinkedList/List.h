@@ -35,33 +35,42 @@ private:
 template<typename T>
 inline List<T>::List()
 {
+	m_first = nullptr;
+	m_last = nullptr;
+	m_nodeCount = 0;
 }
 
 template<typename T>
 inline List<T>::List(const List<T>& other)
 {
+	m_first = other.m_first;
+	m_last = other.m_last;
+	m_nodeCount = other.m_nodeCount;
 }
 
 template<typename T>
 inline List<T>::~List()
 {
+	destroy();
 }
 
 template<typename T>
 inline void List<T>::destroy()
 {
+	for (Iterator<T> iter = begin(); iter.operator* != nullptr; iter++)
+		delete iter.operator*;
 }
 
 template<typename T>
 inline const Iterator<T> List<T>::being()
 {
-	return Iterator<T>();
+	return Iterator<T>(m_first);
 }
 
 template<typename T>
 inline Iterator<T> const List<T>::end()
 {
-	return NULL;
+	return Iterator<T>(m_last);
 }
 
 template<typename T>

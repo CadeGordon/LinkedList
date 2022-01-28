@@ -7,16 +7,31 @@ class Node
 public:
 	Node();
 	Node(T value);
+
+	T data;
 	Node<T>* next;
 	Node<T>* previous;
-	T(data);
-	
-	
-
 
 private:
 
 
 };
 
-int main()
+
+template<typename T>
+inline Node<T>::Node()
+{
+	date = nullptr;
+	next = nullptr;
+	previous = nullptr;
+}
+
+template<typename T>
+inline Node<T>::Node(T value)
+{
+	data = value;
+	next = nullptr;
+	previous = nullptr;
+}
+
+
