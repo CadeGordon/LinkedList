@@ -10,7 +10,7 @@ public:
 	List(const List<T>& other);
 	~List();
 	void destroy();
-	const Iterator<T> being();
+	const Iterator<T> begin();
 	Iterator<T> const end();
 	bool const contains(const T object);
 	void pushFront(const T& value);
@@ -62,7 +62,7 @@ inline void List<T>::destroy()
 }
 
 template<typename T>
-inline const Iterator<T> List<T>::being()
+inline const Iterator<T> List<T>::begin()
 {
 	return Iterator<T>(m_first);
 }
@@ -76,23 +76,72 @@ inline Iterator<T> const List<T>::end()
 template<typename T>
 inline bool const List<T>::contains(const T object)
 {
-	return NULL;
+	bool itemFound = false;
+	Node<T>* currentNode = m_first;
+	for (int i = 0; i < m_nodeCount; i++) {
+		if (currentNode->data == object) {
+			itemFound = true;
+		}
+		currentNode = currentNode->next;
+	}
+
+	return itemFound;
 }
 
 template<typename T>
 inline void List<T>::pushFront(const T& value)
 {
+	Node<T> * newNode = new Node<T>(value);
+	if (m_first != nullptr)
+		newNode->next = m_first;
+	m_first = newNode;
+	if (newNode->next != nullptr)
+		newNode->next->previous = newNode;
+	else
+		m_last = newNode;
+
+	m_nodeCount++;
 }
 
 template<typename T>
 inline void List<T>::pushBack(const T& value)
 {
+	Node<T>* newNode = new Node<T>(value);
+	newNode->previous = m_last;
+	m_last = newNode;
+	if (newNode->previous != nullptr)
+		newNode->previous->next = newNode;
+	else
+		m_first = newNode;
+
+	m_nodeCount++;
+
 }
 
 template<typename T>
 inline bool List<T>::insert(const T& value, int index)
 {
-	return false;
+	bool nodeInserted = false;
+	Node<T>* newNode = new Node<T>(value);
+	Node<T>* currentNode = m_first;
+	if (index >= getLength())
+		return nodeInserted;
+
+	if (index == 0)
+		pushFront(value);
+	else if (index == m_nodeCount)
+		pushBack(value);
+
+	for (int i = 0; i < index; i++)
+		currentNode = currentNode->next;
+
+	newNode->next = currentNode;
+	newNode->previous = currentNode->previous;
+	currentNode->previous->next = newNode;
+	currentNode->previous = newNode;
+
+	m_nodeCount++;
+	return nodeInserted;
 }
 
 template<typename T>
