@@ -147,7 +147,20 @@ inline bool List<T>::insert(const T& value, int index)
 template<typename T>
 inline bool List<T>::remove(const T& value)
 {
-	return false;
+	bool objectRemoved = false;
+	Node<T>* nodeToRemove = m_first;
+	for (int i = 0; i < m_nodeCount; i++) {
+		if (nodeToRemove->data == value) {
+			nodeToRemove->next->previous = nodeToRemove->previous;
+			nodeToRemove->previous->next = nodeToRemove->next;
+			delete nodeToRemove;
+			m_nodeCount--;
+			break;
+		}
+		nodeToRemove = nodeToRemove->next;
+	}
+
+	return objectRemoved;
 }
 
 template<typename T>
