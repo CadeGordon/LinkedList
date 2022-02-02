@@ -166,36 +166,68 @@ inline bool List<T>::remove(const T& value)
 template<typename T>
 inline void const List<T>::print()
 {
-	return NULL;
+	Node<T>* currentNode = m_first;
+
+	for (int i = 0; i < getLength(); i++)
+		if (currentNode != nullptr)
+		{
+			std::cout << currentNode->data << std::endl;
+			currentNode = currentNode->next;
+		}
 }
 
 template<typename T>
 inline void List<T>::initialize()
 {
+	m_first = nullptr;
+	m_last = nullptr;
+	m_nodeCount = 0;
 }
 
 template<typename T>
 inline bool const List<T>::isEmpty()
 {
-	return NULL;
+	if (m_last == nullptr && m_last == nullptr && m_nodeCount = 0)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+
 }
 
 template<typename T>
 inline bool List<T>::getData(Iterator<T>& iter, int index)
 {
-	return false;
+	if (index <= 0 || index > getLength())
+		return false;
+
+	Iterator<T> tempIterator = begin();
+
+	for (int i = 0; i < getLength(); i++)
+	{
+		if (tempIterator == iter)
+		{
+			++iter;
+		}
+		++tempIterator;
+	}
+
+	return true;
 }
 
 template<typename T>
 inline int const List<T>::getLength()
 {
-	return NULL;
+	return m_nodeCount;
 }
 
 template<typename T>
 inline const List<T>& List<T>::operator=(const List<T>& otherList)
 {
-	// TODO: insert return statement here
+	
 }
 
 template<typename T>
