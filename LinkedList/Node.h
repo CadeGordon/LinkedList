@@ -21,7 +21,7 @@ private:
 template<typename T>
 inline Node<T>::Node()
 {
-	date = nullptr;
+	data = 0;
 	next = nullptr;
 	previous = nullptr;
 }

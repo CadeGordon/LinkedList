@@ -57,8 +57,16 @@ inline List<T>::~List()
 template<typename T>
 inline void List<T>::destroy()
 {
-	for (Iterator<T> iter = begin(); iter.operator* != nullptr; iter++)
-		delete iter.operator*;
+	Node<T>* currentNode = m_first;
+	Node<T>* nextNode;
+	for (int i = 0; i < m_nodeCount; i++) 
+	{
+		nextNode = currentNode->next;
+		delete currentNode;
+		m_nodeCount--;
+		currentNode = nextNode;
+	}
+	initialize();
 }
 
 template<typename T>
@@ -126,13 +134,21 @@ inline bool List<T>::insert(const T& value, int index)
 	bool nodeInserted = false;
 	Node<T>* newNode = new Node<T>(value);
 	Node<T>* currentNode = m_first;
-	if (index >= getLength())
+	if (index > getLength())
 		return nodeInserted;
 
 	if (index == 0)
+	{
 		pushFront(value);
+		return true;
+	}
+		
 	else if (index == m_nodeCount)
+	{
 		pushBack(value);
+		return true;
+	}
+		
 
 	for (int i = 0; i < index; i++)
 		currentNode = currentNode->next;
@@ -155,8 +171,14 @@ inline bool List<T>::remove(const T& value)
 	{
 		if (nodeToRemove->data == value) 
 		{
-			nodeToRemove->next->previous = nodeToRemove->previous;
-			nodeToRemove->previous->next = nodeToRemove->next;
+			if (nodeToRemove->next != nullptr)
+				nodeToRemove->next->previous = nodeToRemove->previous;
+			else
+				m_last = nodeToRemove->previous;
+			if (nodeToRemove->previous != nullptr)
+				nodeToRemove->previous->next = nodeToRemove->next;
+			else
+				m_first = nodeToRemove->next;
 			delete nodeToRemove;
 			m_nodeCount--;
 			break;
@@ -191,14 +213,7 @@ inline void List<T>::initialize()
 template<typename T>
 inline bool const List<T>::isEmpty()
 {
-	if (m_last == nullptr && m_last == nullptr && m_nodeCount = 0)
-	{
-		return true;
-	}
-	else
-	{
-		return false;
-	}
+	return (m_first == nullptr && m_last == nullptr && m_nodeCount == 0);
 
 }
 
