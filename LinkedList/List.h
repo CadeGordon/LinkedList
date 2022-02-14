@@ -6,21 +6,53 @@ template<typename T>
 class List
 {
 public:
+
+	//creates a new list with no data
 	List();
+
+	//creates a new list using the same elements from another list
 	List(const List<T>& other);
+
+	//destroys the list using destroy function
 	~List();
+
+	//deletes all elemtnts of a list
 	void destroy();
+
+	//Creates a new iterator that points to teh first node
 	const Iterator<T> begin();
+
+	//creates a ew iterator that points to the last node
 	Iterator<T> const end();
+
+	//finds out where or not a specific item could be found
 	bool const contains(const T object);
+
+	//adds a node to the front of the list
 	void pushFront(const T& value);
+
+	//adds a node to the back of the list
 	void pushBack(const T& value);
+
+	//insersts a new node in to the index if it is valid
 	bool insert(const T& value, int index);
+
+	//removes node of the given value from the list
 	bool remove(const T& value);
+
+	//prints each element that is apart of the lsit
 	void const print();
+
+	//sets the frist and last node to nothing
 	void initialize();
+
+	//sees if the list has any elements
 	bool const isEmpty();
+
+	//sets the iterator to point at the index
 	bool getData(Iterator<T>& iter, int index);
+
+	//finds the number of nodes in teh list
 	int const getLength();
 	const List<T>& operator = (const List<T>& otherList);
 	void sort();
@@ -32,6 +64,7 @@ private:
 
 };
 
+
 template<typename T>
 inline List<T>::List()
 {
@@ -39,6 +72,7 @@ inline List<T>::List()
 	m_last = nullptr;
 	m_nodeCount = 0;
 }
+
 
 template<typename T>
 inline List<T>::List(const List<T>& other)

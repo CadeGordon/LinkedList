@@ -17,7 +17,7 @@ private:
 
 };
 
-
+//creates a new node that holds no data
 template<typename T>
 inline Node<T>::Node()
 {
@@ -26,6 +26,7 @@ inline Node<T>::Node()
 	previous = nullptr;
 }
 
+//creates a new node that holds some value for its data
 template<typename T>
 inline Node<T>::Node(T value)
 {
