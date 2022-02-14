@@ -78,8 +78,10 @@ inline bool const List<T>::contains(const T object)
 {
 	bool itemFound = false;
 	Node<T>* currentNode = m_first;
-	for (int i = 0; i < m_nodeCount; i++) {
-		if (currentNode->data == object) {
+	for (int i = 0; i < m_nodeCount; i++) 
+	{
+		if (currentNode->data == object) 
+		{
 			itemFound = true;
 		}
 		currentNode = currentNode->next;
@@ -149,8 +151,10 @@ inline bool List<T>::remove(const T& value)
 {
 	bool objectRemoved = false;
 	Node<T>* nodeToRemove = m_first;
-	for (int i = 0; i < m_nodeCount; i++) {
-		if (nodeToRemove->data == value) {
+	for (int i = 0; i < m_nodeCount; i++) 
+	{
+		if (nodeToRemove->data == value) 
+		{
 			nodeToRemove->next->previous = nodeToRemove->previous;
 			nodeToRemove->previous->next = nodeToRemove->next;
 			delete nodeToRemove;
@@ -227,12 +231,37 @@ inline int const List<T>::getLength()
 template<typename T>
 inline const List<T>& List<T>::operator=(const List<T>& otherList)
 {
-	
+	destroy();
+	Node<T>* currentNode = otherList.m_first;
+	for (int i = 0; i < otherList.m_nodeCount; i++) 
+	{
+		insert(currentNode->data, i);
+		currentNode = currentNode->next;
+	}
+	return *this;
 }
 
 template<typename T>
 inline void List<T>::sort()
 {
+	Node<T>* currentNode = m_first;
+	Node<T>* tempNode = new Node<T>();
+
+	for (int i = 0; i < m_nodeCount - 1; i++) 
+	{
+		currentNode = m_first;
+		for (int j = 0; j < m_nodeCount - 1; j++) 
+		{
+			if (currentNode->data > currentNode->next->data) 
+			{
+				tempNode->data = currentNode->next->data;
+				currentNode->next->data = currentNode->data;
+				currentNode->data = tempNode->data;
+			}
+			currentNode = currentNode->next;
+		}
+
+	}
 }
 
 
