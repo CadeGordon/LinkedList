@@ -54,7 +54,11 @@ public:
 
 	//finds the number of nodes in teh list
 	int const getLength();
+
+	// Sets this list equal to the given list.
 	const List<T>& operator = (const List<T>& otherList);
+
+	// Sorts the list of elements using bubble sort
 	void sort();
 
 private:
